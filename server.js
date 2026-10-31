@@ -18,9 +18,11 @@ const FLEET = [
   { id: 'submarine', name: 'Submarine', len: 3 },
   { id: 'destroyer', name: 'Destroyer', len: 2 },
   { id: 'patrol', name: 'Patrol boat', len: 2 },
+  { id: 'gunboat', name: 'Gunboat', len: 2 },
   { id: 'skiff1', name: 'Skiff', len: 1 },
   { id: 'skiff2', name: 'Skiff', len: 1 },
   { id: 'skiff3', name: 'Skiff', len: 1 },
+  { id: 'skiff4', name: 'Skiff', len: 1 },
 ];
 const ROOM_IDLE_MS = 30 * 60 * 1000;
 

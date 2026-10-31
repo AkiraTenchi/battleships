@@ -452,8 +452,14 @@
     enemyTag.textContent = view.opponentOnline ? opp : `${opp} (offline)`;
     enemyTag.classList.toggle('offline', !view.opponentOnline);
 
-    $('#panel-own').classList.toggle('active', view.phase === 'battle' && view.turn === 'opponent');
-    $('#panel-enemy').classList.toggle('active', view.phase === 'battle' && view.turn === 'you');
+    // Light up the board that matters this turn and fade the other one.
+    const myTurn = view.phase === 'battle' && view.turn === 'you';
+    const theirTurn = view.phase === 'battle' && view.turn === 'opponent';
+    $('#panel-enemy').classList.toggle('active', myTurn);
+    $('#panel-enemy').classList.toggle('dim', theirTurn);
+    $('#panel-own').classList.toggle('incoming', theirTurn);
+    $('#panel-own').classList.toggle('dim', myTurn);
+    document.title = myTurn ? '● Your turn — Battleships' : 'Battleships';
 
     if (deploying) {
       setBanner('Deploy your fleet', view.opponentJoined
@@ -486,7 +492,7 @@
         setBanner(again ? 'Hit! Fire again' : 'Your turn',
           again ? 'A hit earns you another shot.' : `Pick a square in ${opp}'s waters to fire.`, 'your-turn');
       } else {
-        setBanner(`${opp}'s turn`, again ? `${opp} scored a hit and fires again…` : 'Brace for incoming fire…');
+        setBanner(`${opp}'s turn`, again ? `${opp} scored a hit and fires again…` : 'Brace for incoming fire…', 'their-turn');
       }
     } else if (view.phase === 'over') {
       setBanner(view.winner === 'you' ? 'Victory!' : 'Defeat', '', view.winner === 'you' ? 'win' : 'lose');
