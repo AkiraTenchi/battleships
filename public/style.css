@@ -360,17 +360,30 @@ kbd {
 /* ---------- fleet status ---------- */
 .fleet-status {
   list-style: none;
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  font-size: 13px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
 }
-.fleet-status li { display: flex; align-items: center; gap: 6px; color: var(--text); }
-.fleet-status li.sunk { color: var(--muted); text-decoration: line-through; }
+.fleet-status li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--panel-edge);
+  color: var(--text);
+}
+.fleet-status li.sunk { color: var(--muted); text-decoration: line-through; opacity: 0.7; }
 .pips { display: inline-flex; gap: 2px; }
 .pips i { width: 7px; height: 7px; border-radius: 2px; background: var(--ship); }
+.fleet-status .pips { gap: 3px; }
+.fleet-status .pips i { width: 11px; height: 11px; border-radius: 3px; }
 .pips i.hit { background: var(--hit); }
 .fleet-status li.sunk .pips i { background: #5c3a36; }
 
@@ -440,8 +453,8 @@ kbd {
   background: rgba(13, 38, 63, 0.6);
   border-left: 3px solid var(--panel-edge);
 }
-.log li.hit { border-left-color: var(--hit); }
-.log li.sunk { border-left-color: #ffd36b; }
+.log li.hit { border-left-color: #ffd36b; }
+.log li.sunk { border-left-color: var(--hit); }
 .log li.mine { background: rgba(94, 224, 208, 0.06); }
 .log .coord { font-family: var(--mono); font-weight: 700; }
 
