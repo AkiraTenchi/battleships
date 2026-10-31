@@ -1,0 +1,13 @@
+{
+  "name": "battleships",
+  "version": "1.0.0",
+  "description": "Two-player online Battleships in the browser",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

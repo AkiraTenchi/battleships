@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battleships</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Battleships home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#anchor"/></svg>
+      Battleships
+    </a>
+    <div class="topbar-right">
+      <span id="conn" class="conn" hidden></span>
+      <span id="room-badge" class="room-badge" hidden></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Lobby -->
+    <section id="screen-lobby" class="screen lobby">
+      <div class="lobby-card">
+        <h1>Battleships</h1>
+        <p class="lede">Hide your fleet. Hunt theirs. First to sink the whole enemy fleet wins.</p>
+
+        <label class="field">
+          <span>Your name</span>
+          <input id="name" type="text" maxlength="20" placeholder="Admiral" autocomplete="nickname">
+        </label>
+
+        <button id="btn-create" class="btn primary wide">Create a new game</button>
+
+        <div class="divider"><span>or join a friend</span></div>
+
+        <form id="join-form" class="join-row">
+          <input id="join-code" type="text" maxlength="5" placeholder="CODE" autocomplete="off"
+                 spellcheck="false" aria-label="Game code">
+          <button class="btn" type="submit">Join</button>
+        </form>
+
+        <details class="rules">
+          <summary>How to play</summary>
+          <ol>
+            <li>Create a game and send the link (or code) to your opponent.</li>
+            <li>Place your nine ships on your grid. Ships can't overlap or touch, not even diagonally.</li>
+            <li>Take turns firing at the enemy grid. You'll learn whether each shot hit or missed.
+              A hit lets you fire again; your turn ends when you miss.</li>
+            <li>When every square of a ship is hit, it sinks and the water around it is marked for you.
+              Sink the whole fleet to win.</li>
+          </ol>
+        </details>
+      </div>
+    </section>
+
+    <!-- Game -->
+    <section id="screen-game" class="screen game" hidden>
+      <div id="invite" class="invite" hidden>
+        <div>
+          <strong>Invite your opponent</strong>
+          <p>Send them this link, or the code <b id="invite-code"></b>. You can deploy your fleet while you wait.</p>
+        </div>
+        <div class="invite-link">
+          <input id="invite-url" type="text" readonly aria-label="Invite link">
+          <button id="btn-copy" class="btn">Copy</button>
+        </div>
+      </div>
+
+      <div id="banner" class="banner">
+        <div id="banner-title" class="banner-title"></div>
+        <div id="banner-sub" class="banner-sub"></div>
+      </div>
+
+      <div class="boards">
+        <div class="panel" id="panel-own">
+          <div class="panel-head">
+            <h2 id="own-title">Your fleet</h2>
+            <span id="own-tag" class="tag"></span>
+          </div>
+          <div class="board" id="board-own"></div>
+          <ul class="fleet-status" id="own-status"></ul>
+        </div>
+
+        <div class="panel" id="panel-place">
+          <div class="panel-head"><h2>Deploy</h2></div>
+          <p class="hint">Pick a ship, then click your grid to place it. Click a placed ship to pick it back up.
+            Press <kbd>R</kbd> to rotate.</p>
+          <ul class="dock" id="dock"></ul>
+          <div class="place-actions">
+            <button id="btn-rotate" class="btn">Rotate <span id="dir-label" class="muted">(horizontal)</span></button>
+            <button id="btn-random" class="btn">Randomize</button>
+            <button id="btn-clear" class="btn ghost">Clear</button>
+          </div>
+          <button id="btn-ready" class="btn primary wide" disabled>Ready for battle</button>
+        </div>
+
+        <div class="panel" id="panel-waiting" hidden>
+          <div class="panel-head"><h2>Fleet deployed</h2></div>
+          <p class="hint" id="waiting-text"></p>
+          <button id="btn-unready" class="btn ghost">Change deployment</button>
+        </div>
+
+        <div class="panel" id="panel-enemy" hidden>
+          <div class="panel-head">
+            <h2 id="enemy-title">Enemy waters</h2>
+            <span id="enemy-tag" class="tag"></span>
+          </div>
+          <div class="board" id="board-enemy"></div>
+          <ul class="fleet-status" id="enemy-status"></ul>
+        </div>
+      </div>
+
+      <div id="gameover" class="gameover" hidden>
+        <div class="gameover-title" id="gameover-title"></div>
+        <div class="stats" id="stats"></div>
+        <div class="gameover-actions">
+          <button id="btn-rematch" class="btn primary">Rematch</button>
+          <a class="btn ghost" href="/">New game</a>
+        </div>
+      </div>
+
+      <section class="log-wrap" id="log-wrap" hidden>
+        <h3>Battle log</h3>
+        <ol id="log" class="log"></ol>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="anchor" viewBox="0 0 32 32">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="16" cy="6" r="3"/>
+        <path d="M16 9v19M10 14h12M5 19c1 5 5 9 11 9s10-4 11-9"/>
+        <path d="M3 21l2-2 2 2M25 21l2-2 2 2"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <script src="app.js"></script>
+</body>
+</html>
